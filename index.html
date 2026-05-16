@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>CoffeeOS Ultra v4</title>
+  <meta name="theme-color" content="#11100d" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-lang="ko">
+  <div id="intro" class="intro">
+    <div class="intro-mark">
+      <span></span>
+    </div>
+    <div class="intro-text">
+      <p>CoffeeOS</p>
+      <h1>CoffeeOS</h1>
+      <span>Specialty Coffee Experience Platform</span>
+    </div>
+  </div>
+
+  <div class="grain"></div>
+  <div id="toast" class="toast"></div>
+
+  <aside id="drawer" class="drawer">
+    <div class="drawer-head">
+      <div>
+        <p data-i18n="platform" class="overline">CoffeeOS</p>
+        <h2 data-i18n="drawerTitle">커피 경험 플랫폼</h2>
+      </div>
+      <button class="round" onclick="toggleDrawer()">×</button>
+    </div>
+    <button data-i18n="navHome" onclick="route('home')">홈</button>
+    <button data-i18n="navBean" onclick="route('bean')">원두</button>
+    <button data-i18n="navBrew" onclick="route('brew')">추출</button>
+    <button data-i18n="navSensory" onclick="route('sensory')">센서리</button>
+    <button data-i18n="navLibrary" onclick="route('library')">도감</button>
+    <button data-i18n="navJournal" onclick="route('journal')">기록</button>
+    <button data-i18n="navReminder" onclick="route('reminder')">리마인드</button>
+    <button data-i18n="navCulture" onclick="route('culture')">커핑</button>
+    <button data-i18n="navTaste" onclick="route('taste')">추천</button>
+    <button data-i18n="navShop" onclick="route('shop')">구매</button>
+  </aside>
+
+  <header class="topbar">
+    <button class="round" onclick="toggleDrawer()">☰</button>
+    <div class="logo" onclick="route('home')">
+      <span></span>
+      <strong>CoffeeOS</strong>
+    </div>
+    <div class="header-actions">
+      <select id="langSelect" onchange="setLanguage(this.value)">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+      </select>
+      <button class="qr-btn" onclick="simulateQR()">QR</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="screen active">
+      <div class="hero">
+        <div class="hero-copy">
+          <p data-i18n="heroPill" class="pill">QR · 브루잉 · 센서리 · 도감 · 커핑 · 구매</p>
+          <h1 data-i18n="heroTitle">원두를 산 뒤에도 브랜드 경험은 계속된다.</h1>
+          <p data-i18n="heroLead" class="lead">원두 봉투의 QR에서 시작해 레시피, 농장 설명, 센서리 기록, 도감, 커핑 소식, 리마인드, 로스터리별 판매 페이지까지 연결합니다.</p>
+          <div class="actions">
+            <button data-i18n="openQR" onclick="simulateQR()">QR 원두 열기</button>
+            <button data-i18n="openShop" class="secondary" onclick="route('shop')">로스터리 판매 페이지</button>
+          </div>
+        </div>
+        <div class="aroma-panel">
+          <div class="aroma-particle p1"></div>
+          <div class="aroma-particle p2"></div>
+          <div class="aroma-particle p3"></div>
+          <div class="aroma-card top"><span>Jasmine</span><b>Floral White</b></div>
+          <div class="aroma-card mid"><span>Peach</span><b>Soft Apricot</b></div>
+          <div class="aroma-card bottom"><span>Black Tea</span><b>Deep Amber</b></div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <p data-i18n="coreLabel" class="overline">Core</p>
+        <h2 data-i18n="coreTitle">CoffeeOS 핵심 기능</h2>
+      </div>
+
+      <div class="feature-grid">
+        <article onclick="route('bean')"><span>01</span><h3 data-i18n="featureBean">원두 상세</h3><p data-i18n="featureBeanDesc">컵노트, 농장, 로스팅 의도, 영상, 도감 등록.</p></article>
+        <article onclick="route('brew')"><span>02</span><h3 data-i18n="featureBrew">브루잉</h3><p data-i18n="featureBrewDesc">00:00부터 시작하는 단계형 타이머와 알람.</p></article>
+        <article onclick="route('sensory')"><span>03</span><h3 data-i18n="featureSensory">센서리</h3><p data-i18n="featureSensoryDesc">초보자용 보완 + 전문가용 CVA 기반 폼.</p></article>
+        <article onclick="route('library')"><span>04</span><h3 data-i18n="featureLibrary">도감</h3><p data-i18n="featureLibraryDesc">원두, 로스터리, 농장을 따로 수집.</p></article>
+        <article onclick="route('taste')"><span>05</span><h3 data-i18n="featureTaste">취향 분석</h3><p data-i18n="featureTasteDesc">실제 데이터가 들어오면 즉시 점수화해 추천.</p></article>
+        <article onclick="route('shop')"><span>06</span><h3 data-i18n="featureShop">판매 페이지</h3><p data-i18n="featureShopDesc">로스터리별 원두 라인업과 구매 연결.</p></article>
+      </div>
+    </section>
+
+    <section id="bean" class="screen">
+      <div class="page-head">
+        <p class="overline">QR Bean Page</p>
+        <h1 data-i18n="beanTitle">Vivid Gesha Washed</h1>
+        <p data-i18n="beanSubtitle">Panama · Finca Vivid · Lot 24A · BLKRITUAL</p>
+      </div>
+
+      <div class="bean-layout">
+        <div class="pack-card">
+          <div class="pack-label">
+            <small>BLKRITUAL</small>
+            <strong>Vivid Gesha</strong>
+            <span>Jasmine · Peach · Black Tea</span>
+          </div>
+        </div>
+
+        <div class="bean-info">
+          <div class="flavor-palette">
+            <span style="--c:#f7f2e8">Jasmine</span>
+            <span style="--c:#d8c7b3">Peach</span>
+            <span style="--c:#c8c3ba">Bergamot</span>
+            <span style="--c:#b8ada0">Honey</span>
+            <span style="--c:#3a3936;color:#fff">Black Tea</span>
+          </div>
+
+          <div class="spec-grid">
+            <div><small>Origin</small><b>Panama</b></div>
+            <div><small>Region</small><b>Boquete</b></div>
+            <div><small>Farm</small><b>Finca Vivid</b></div>
+            <div><small>Altitude</small><b>1,850m</b></div>
+            <div><small>Variety</small><b>Gesha</b></div>
+            <div><small>Process</small><b>Washed</b></div>
+          </div>
+
+          <div class="glass">
+            <h3 data-i18n="roastIntentTitle">로스팅 의도</h3>
+            <p data-i18n="roastIntentBody">플로럴과 복숭아 계열의 선명도를 중심에 두고, 식었을 때 홍차 같은 여운이 남도록 설계했습니다. 과도한 단맛보다 투명한 구조를 우선합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="farm-story">
+        <div>
+          <p class="overline">Farm Story</p>
+          <h2 data-i18n="farmTitle">농장과 향미의 연결</h2>
+          <p data-i18n="farmBody">보케테 지역은 높은 고도, 큰 일교차, 안개가 많은 환경으로 체리 성숙이 천천히 진행됩니다. 이 조건은 밝은 산미, 섬세한 꽃향, 차 같은 질감과 연결될 수 있습니다. 실제 설명은 로스터리가 제공한 농장 자료를 기준으로 작성되어야 합니다.</p>
+        </div>
+        <div class="farm-map"><span>Boquete</span></div>
+      </div>
+
+      <div class="video-slot">
+        <div class="play">▶</div>
+        <div>
+          <p class="overline">Recipe Video</p>
+          <h3 data-i18n="videoTitle">브루잉 영상 영역</h3>
+          <p data-i18n="videoBody">15~40초 세로형 레시피 영상이 들어가는 자리입니다.</p>
+        </div>
+      </div>
+
+      <div class="temp-card">
+        <h3 data-i18n="tempTitle">온도별 향미</h3>
+        <div class="temp-steps">
+          <div><b>HOT</b><span>Jasmine · Bergamot</span></div>
+          <div><b>WARM</b><span>Peach · Honey</span></div>
+          <div><b>COLD</b><span>Black Tea · Clean Finish</span></div>
+        </div>
+      </div>
+
+      <div class="floating-actions">
+        <button data-i18n="startRecipe" onclick="route('brew')">레시피 시작</button>
+        <button data-i18n="addBean" class="secondary" onclick="addToLibrary('bean')">원두 도감 등록</button>
+        <button data-i18n="goShop" class="secondary" onclick="route('shop')">구매 페이지</button>
+      </div>
+    </section>
+
+    <section id="brew" class="screen">
+      <div class="page-head">
+        <p class="overline">Brew Studio</p>
+        <h1 data-i18n="brewTitle">00:00부터 시작하는 레시피 타이머</h1>
+        <p data-i18n="brewBody">사용자가 멈추지 않는 한 단계별 추출 알람이 계속 표시됩니다.</p>
+      </div>
+
+      <div class="brew-layout">
+        <div class="timer-module">
+          <svg viewBox="0 0 240 240">
+            <circle class="ring-bg" cx="120" cy="120" r="104"></circle>
+            <circle id="progress" class="ring-active" cx="120" cy="120" r="104"></circle>
+          </svg>
+          <div class="timer-center">
+            <span id="phaseLabel">READY</span>
+            <strong id="clock">00:00</strong>
+            <div class="inline-controls">
+              <button data-i18n="start" onclick="startTimer()">시작</button>
+              <button data-i18n="stop" class="secondary" onclick="pauseTimer()">정지</button>
+              <button data-i18n="reset" class="secondary" onclick="resetTimer()">초기화</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div id="phaseList" class="phase-list"></div>
+          <div class="alarm-box">
+            <h3 data-i18n="brewAlarmTitle">추출 알람</h3>
+            <p id="alarmText" data-i18n="brewAlarmReady">타이머를 시작하면 단계별 알람이 표시됩니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-fix">
+        <h3 data-i18n="quickFixTitle">10초 처방</h3>
+        <div class="fix-grid">
+          <button data-i18n="tooSour" onclick="fixTaste('sour')">시고 얇아요</button>
+          <button data-i18n="tooBitter" onclick="fixTaste('bitter')">쓰고 텁텁해요</button>
+          <button data-i18n="tooWeak" onclick="fixTaste('weak')">향이 약해요</button>
+        </div>
+        <p id="fixResult" data-i18n="quickFixReady">문제를 선택하면 바로 수정 방향을 보여줍니다.</p>
+      </div>
+    </section>
+
+    <section id="sensory" class="screen">
+      <div class="page-head">
+        <p class="overline">Sensory Lab</p>
+        <h1 data-i18n="sensoryTitle">초보자는 쉽게, 전문가는 CVA 기반으로.</h1>
+        <p data-i18n="sensoryBody">초보자는 표현을 돕고, 전문가는 구조적으로 평가합니다.</p>
+      </div>
+
+      <div class="segmented">
+        <button id="beginnerTab" class="on" data-i18n="beginner" onclick="setSensoryMode('beginner')">초보자용</button>
+        <button id="expertTab" data-i18n="expert" onclick="setSensoryMode('expert')">전문가용 CVA</button>
+      </div>
+
+      <div id="beginnerForm" class="sensory-card">
+        <h3 data-i18n="easySensory">쉬운 센서리</h3>
+        <p data-i18n="easySensoryDesc">맛을 몰라도 고를 수 있게 감각 중심으로 구성했습니다.</p>
+        <h4 data-i18n="aromaFeel">향 느낌</h4>
+        <div class="choice-grid">
+          <label><input type="checkbox" value="Peach">🍑 <span data-i18n="peach">복숭아</span></label>
+          <label><input type="checkbox" value="Citrus">🍋 <span data-i18n="citrus">상큼함</span></label>
+          <label><input type="checkbox" value="Floral">🌸 <span data-i18n="floral">꽃향</span></label>
+          <label><input type="checkbox" value="Honey">🍯 <span data-i18n="honey">꿀같은 단맛</span></label>
+          <label><input type="checkbox" value="Chocolate">🍫 <span data-i18n="chocolate">초콜릿</span></label>
+          <label><input type="checkbox" value="Tea-like">🍵 <span data-i18n="teaLike">차 같다</span></label>
+        </div>
+        <h4 data-i18n="mouthFeel">마셨을 때 느낌</h4>
+        <div class="choice-grid">
+          <label><input type="checkbox" value="Clean"> <span data-i18n="clean">깔끔하다</span></label>
+          <label><input type="checkbox" value="Soft"> <span data-i18n="soft">부드럽다</span></label>
+          <label><input type="checkbox" value="Heavy"> <span data-i18n="heavy">묵직하다</span></label>
+          <label><input type="checkbox" value="Long finish"> <span data-i18n="longFinish">오래 남는다</span></label>
+        </div>
+        <textarea data-i18n-placeholder="memoPlaceholder" placeholder="한 줄 감상"></textarea>
+        <button data-i18n="saveRecord" onclick="saveSensory('beginnerForm')">기록 저장</button>
+      </div>
+
+      <div id="expertForm" class="sensory-card hidden">
+        <h3 data-i18n="cvaTitle">CVA 커핑폼 기반</h3>
+        <p data-i18n="cvaDesc">공식 양식을 대체하는 것이 아니라, 앱용으로 압축한 전문 기록 구조입니다.</p>
+        <div class="cva-grid">
+          <label>Fragrance / Aroma<input type="range" min="1" max="9" value="7"></label>
+          <label>Flavor<input type="range" min="1" max="9" value="7"></label>
+          <label>Acidity<input type="range" min="1" max="9" value="6"></label>
+          <label>Sweetness<input type="range" min="1" max="9" value="7"></label>
+          <label>Mouthfeel<input type="range" min="1" max="9" value="5"></label>
+          <label>Aftertaste<input type="range" min="1" max="9" value="6"></label>
+          <label>Balance<input type="range" min="1" max="9" value="7"></label>
+          <label>Overall<input type="range" min="1" max="9" value="7"></label>
+        </div>
+        <textarea data-i18n-placeholder="expertMemoPlaceholder" placeholder="전문 코멘트"></textarea>
+        <button data-i18n="saveCVA" onclick="saveSensory('expertForm')">CVA 기록 저장</button>
+      </div>
+    </section>
+
+    <section id="library" class="screen">
+      <div class="page-head">
+        <p class="overline">Collection</p>
+        <h1 data-i18n="libraryPageTitle">도감</h1>
+        <p data-i18n="libraryPageBody">원두, 로스터리, 농장을 따로 수집합니다.</p>
+      </div>
+
+      <div class="library-tabs">
+        <button data-i18n="beanLibrary" class="on" onclick="setLibrary('beans', this)">원두 도감</button>
+        <button data-i18n="roasterLibrary" onclick="setLibrary('roasters', this)">로스터리 도감</button>
+        <button data-i18n="farmLibrary" onclick="setLibrary('farms', this)">농장 도감</button>
+      </div>
+
+      <div id="libraryContent" class="collection-grid"></div>
+    </section>
+
+    <section id="journal" class="screen">
+      <div class="page-head">
+        <p class="overline">My Coffee Journal</p>
+        <h1 data-i18n="journalPageTitle">내 센서리 기록</h1>
+        <p data-i18n="journalPageBody">저장한 센서리, 마신 원두, 향미 히스토리를 따로 봅니다.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div><small>Floral</small><b>82%</b></div>
+        <div><small>Tea-like</small><b>76%</b></div>
+        <div><small>Citrus</small><b>61%</b></div>
+      </div>
+
+      <div class="journal-list" id="journalList"></div>
+    </section>
+
+    <section id="reminder" class="screen">
+      <div class="page-head">
+        <p class="overline">Coffee Reminder</p>
+        <h1 data-i18n="reminderPageTitle">그때 마신 커피를 다시 떠올리기.</h1>
+        <p data-i18n="reminderPageBody">1년 전 오늘, 한 달 전 오늘 마신 커피를 리마인드합니다.</p>
+      </div>
+
+      <div class="reminder-actions">
+        <button data-i18n="requestAlert" onclick="requestNotify()">알림 권한 요청</button>
+        <button data-i18n="yearAlert" class="secondary" onclick="simulateReminder('year')">1년 전 오늘 알림 보기</button>
+        <button data-i18n="monthAlert" class="secondary" onclick="simulateReminder('month')">한 달 전 오늘 알림 보기</button>
+      </div>
+
+      <div class="reminder-grid">
+        <article><span data-i18n="oneYearAgo">1년 전 오늘</span><h3>Ethiopia Floral Washed</h3><p>Jasmine · Citrus · Tea-like</p><button data-i18n="sendAlert" onclick="notifyCoffee('Ethiopia Floral Washed')">알림 보내기</button></article>
+        <article><span data-i18n="oneMonthAgo">한 달 전 오늘</span><h3>Brazil Sweet Natural</h3><p>Chocolate · Nutty · Brown Sugar</p><button data-i18n="sendAlert" onclick="notifyCoffee('Brazil Sweet Natural')">알림 보내기</button></article>
+      </div>
+    </section>
+
+    <section id="culture" class="screen">
+      <div class="page-head">
+        <p class="overline">Culture Feed</p>
+        <h1 data-i18n="cultureTitle">커핑 소식</h1>
+        <p data-i18n="cultureBody">지역별 커핑, 신상 원두 공개, 로스터리 팝업을 모읍니다.</p>
+      </div>
+      <div class="event-list">
+        <article><span data-i18n="iksanEventMeta">익산 · 목요일 19:00</span><h3>Experimental Process Cupping</h3><p data-i18n="iksanEventBody">코페르먼트와 무산소 라인업 비교.</p></article>
+        <article><span data-i18n="seoulEventMeta">서울 · 토요일 17:00</span><h3>Same Farm Session</h3><p data-i18n="seoulEventBody">같은 농장 원두의 로스터리별 표현 차이.</p></article>
+      </div>
+    </section>
+
+    <section id="taste" class="screen">
+      <div class="page-head">
+        <p class="overline">Taste Engine</p>
+        <h1 data-i18n="tasteTitle">실제 데이터 기반 취향 추천</h1>
+        <p data-i18n="tasteBody">센서리 기록, 선호 향미, 추출 결과가 들어오면 즉시 점수화합니다.</p>
+      </div>
+
+      <div class="taste-card">
+        <label data-i18n="dataInputLabel">분석할 데이터 선택</label>
+        <select id="profileSelect" onchange="analyzeProfile()">
+          <option value="floral">Floral / Tea-like 기록이 많은 사용자</option>
+          <option value="sweet">Chocolate / Nutty 기록이 많은 사용자</option>
+          <option value="funky">Fermented / Tropical 기록이 많은 사용자</option>
+        </select>
+        <div id="analysisResult" class="analysis-result"></div>
+      </div>
+    </section>
+
+    <section id="shop" class="screen">
+      <div class="page-head">
+        <p class="overline">Roastery Shop</p>
+        <h1 data-i18n="shopTitle">로스터리별 원두 판매 페이지</h1>
+        <p data-i18n="shopBody">앱 내 결제가 아니라 로스터리 구매 링크로 연결하는 구조입니다.</p>
+      </div>
+
+      <div class="shop-roastery">
+        <div>
+          <p class="overline">BLKRITUAL</p>
+          <h2>Seasonal Lineup</h2>
+          <p data-i18n="shopRoasteryDesc">단맛과 클린컵 중심의 원두 라인업.</p>
+        </div>
+        <button data-i18n="roasteryPage" onclick="route('roastery')">로스터리 페이지</button>
+      </div>
+
+      <div class="shop-grid" id="shopGrid"></div>
+    </section>
+
+    <section id="roastery" class="screen">
+      <div class="page-head">
+        <p class="overline">Roastery</p>
+        <h1>BLKRITUAL</h1>
+        <p data-i18n="roasteryDesc">단맛과 클린컵 중심의 로스팅. 조용하지만 선명한 커피 경험.</p>
+      </div>
+      <div class="feature-grid">
+        <article><h3 data-i18n="roasteryPhilosophy">로스팅 철학</h3><p data-i18n="roasteryPhilosophyBody">향미의 과장보다 추출 안정성과 클린컵을 우선합니다.</p></article>
+        <article><h3 data-i18n="currentLineup">시즌 원두</h3><p>Vivid Gesha · Ethiopia Floral · Brazil Sweet Natural</p></article>
+        <article><h3 data-i18n="b2bInquiry">납품 문의</h3><p data-i18n="b2bBody">납품용 원두는 별도 페이지로 레시피와 운영 가이드를 제공합니다.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <nav class="dock">
+    <button data-i18n="dockHome" onclick="route('home')">홈</button>
+    <button data-i18n="dockBean" onclick="route('bean')">원두</button>
+    <button data-i18n="dockBrew" onclick="route('brew')">추출</button>
+    <button data-i18n="dockLibrary" onclick="route('library')">도감</button>
+    <button data-i18n="dockShop" onclick="route('shop')">구매</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
